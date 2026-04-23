@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const SERIF = "'Cormorant Garamond', Georgia, serif";
@@ -23,9 +23,10 @@ const pageLinks = [
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen]         = useState(false);
+  const [scrolled, setScrolled]   = useState(false);
+  const [open, setOpen]           = useState(false);
   const [pagesOpen, setPagesOpen] = useState(false);
+  const pagesRef  = useRef(null);
   const location  = useLocation();
   const navigate  = useNavigate();
   const isHome    = location.pathname === "/";
@@ -41,8 +42,19 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
-  // Close dropdown on route change
-  useEffect(() => { setPagesOpen(false); setOpen(false); }, [location]);
+  // Close mobile drawer on route change (dropdown closes via outside click)
+  useEffect(() => { setOpen(false); }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handler = (e) => {
+      if (pagesRef.current && !pagesRef.current.contains(e.target)) {
+        setPagesOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const scrollTo = (e, href) => {
     e.preventDefault();
@@ -79,7 +91,6 @@ export default function Navbar() {
         .nb-inner {
           max-width: 1400px;
           margin: 0 auto;
-          margin-top: 1rem;
           padding: 0 4rem;
           height: 80px;
           display: flex;
@@ -128,7 +139,7 @@ export default function Navbar() {
 
         .nb-link-num {
           font-family: 'DM Sans', sans-serif;
-          font-size: 12px;
+          font-size: 11px;
           font-weight: 500;
           letter-spacing: 0.06em;
           color: #C9963A;
@@ -137,9 +148,9 @@ export default function Navbar() {
         }
 
         .nb-link-label {
-          font-family:  poppins;
-          font-size: 13px;
-          font-weight: 700;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
           letter-spacing: 0.13em;
           text-transform: uppercase;
           color: #8A8278;
@@ -165,9 +176,9 @@ export default function Navbar() {
         }
 
         .nb-pages-btn {
-          font-family:  sans-serif;
-          font-size: 15px;
-          font-weight: 700;
+          font-family: 'DM Sans', sans-serif;
+          font-size: 14px;
+          font-weight: 500;
           letter-spacing: 0.13em;
           text-transform: uppercase;
           color: #8A8278;
@@ -177,60 +188,77 @@ export default function Navbar() {
           display: flex;
           align-items: center;
           gap: 6px;
-          padding: 0 0 4px;
+          padding: 4px 0;
           transition: color 0.2s;
+          line-height: 1;
         }
 
-        .nb-pages-btn:hover { color: #F0EBE1; }
+        .nb-pages-btn:hover  { color: #F0EBE1; }
         .nb-pages-btn.nb-pages-active { color: #F0EBE1; }
 
         .nb-pages-arrow {
-          font-size: 15px;
-          transition: transform 0.2s ease;
+          font-size: 8px;
+          transition: transform 0.22s ease;
           display: inline-block;
+          margin-top: 1px;
         }
 
         .nb-pages-btn.nb-pages-active .nb-pages-arrow { transform: rotate(180deg); }
 
         .nb-dropdown {
           position: absolute;
-          top: calc(100% + 16px);
+          top: 100%;
           left: 50%;
           transform: translateX(-50%);
           background: #0E0D0B;
           border: 1px solid #2C2A27;
-          min-width: 180px;
-          padding: 8px 0;
+          border-top: 2px solid #C9963A;
+          min-width: 200px;
+          padding: 6px 0 10px;
           opacity: 0;
           pointer-events: none;
-          transform: translateX(-50%) translateY(-6px);
-          transition: opacity 0.2s ease, transform 0.2s ease;
+          margin-top: 12px;
+          transition: opacity 0.18s ease, margin-top 0.18s ease;
+          z-index: 100;
+          box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+        }
+
+        /* invisible bridge so mouse can travel from button to dropdown */
+        .nb-dropdown::before {
+          content: '';
+          position: absolute;
+          top: -14px;
+          left: 0;
+          right: 0;
+          height: 14px;
         }
 
         .nb-dropdown.nb-dd-open {
           opacity: 1;
           pointer-events: auto;
-          transform: translateX(-50%) translateY(0);
+          margin-top: 0;
         }
 
         .nb-dd-link {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 10px 20px;
+          padding: 11px 20px;
           text-decoration: none;
           transition: background 0.15s;
+          border-bottom: 1px solid #1A1916;
         }
 
-        .nb-dd-link:hover { background: #1A1916; }
+        .nb-dd-link:last-child { border-bottom: none; }
+        .nb-dd-link:hover { background: #181512; }
 
         .nb-dd-label {
           font-family: 'DM Sans', sans-serif;
           font-size: 11px;
           font-weight: 500;
-          letter-spacing: 0.1em;
+          letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #8A8278;
+          color: #7A7267;
           transition: color 0.15s;
         }
 
@@ -240,10 +268,10 @@ export default function Navbar() {
         .nb-dd-arrow {
           font-size: 10px;
           color: #3A3530;
-          transition: color 0.15s;
+          transition: color 0.15s, transform 0.15s;
         }
 
-        .nb-dd-link:hover .nb-dd-arrow { color: #C9963A; }
+        .nb-dd-link:hover .nb-dd-arrow { color: #C9963A; transform: translateX(2px); }
 
         /* ── Right side ── */
         .nb-right {
@@ -478,10 +506,12 @@ export default function Navbar() {
         {/* Desktop: pages dropdown (always visible) */}
         <div
           className="nb-pages-wrap"
-          onMouseEnter={() => setPagesOpen(true)}
-          onMouseLeave={() => setPagesOpen(false)}
+          ref={pagesRef}
         >
-          <button className={`nb-pages-btn${pagesOpen ? " nb-pages-active" : ""}`}>
+          <button
+            className={`nb-pages-btn${pagesOpen ? " nb-pages-active" : ""}`}
+            onClick={() => setPagesOpen(p => !p)}
+          >
             Pages
             <span className="nb-pages-arrow">▾</span>
           </button>

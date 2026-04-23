@@ -4,13 +4,13 @@ const SANS = "'DM Sans', system-ui, sans-serif";
 const photos = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=700&h=800&fit=crop",
+    src: "/public/nathon-oski-EW_rqoSdDes-unsplash (1).jpg",
     label: "A skin fade in progress",
     date: "Mar '24",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=700&h=800&fit=crop",
+    src: "/public/andre-reis-1_DAlXy0wng-unsplash.jpg",
     label: "Tools of the trade",
     date: "Feb '24",
   },
