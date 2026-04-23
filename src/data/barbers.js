@@ -6,7 +6,7 @@ export const barbers = [
     role: "Master barber, owner",
     specialty: "Classic cuts & hot lather",
     image:
-      "/images/andre-reis-_XD3D9pH83k-unsplash.jpg",
+      "/public/images/andre-reis-_XD3D9pH83k-unsplash.jpg",
   },
   {
     id: 2,
@@ -15,7 +15,7 @@ export const barbers = [
     role: "Senior stylist",
     specialty: "Fades & modern texture",
     image:
-      "/images/eugene-chystiakov-taZSJ6xmt48-unsplash.jpg",
+      "/public/images/eugene-chystiakov-taZSJ6xmt48-unsplash.jpg",
   },
   {
     id: 3,
@@ -24,6 +24,6 @@ export const barbers = [
     role: "Beard & shave specialist",
     specialty: "Straight razor & beard art",
     image:
-      "/images/soybreno-LtLSu-2dvAU-unsplash.jpg",
+      "/public/images/soybreno-LtLSu-2dvAU-unsplash.jpg",
   },
 ];

@@ -4,37 +4,37 @@ const SANS = "'DM Sans', system-ui, sans-serif";
 const photos = [
   {
     id: 1,
-    src: "/images/nathon-oski-EW_rqoSdDes-unsplash (1).jpg",
+    src: "/public/images/nathon-oski-EW_rqoSdDes-unsplash (1).jpg",
     label: "A skin fade in progress",
     date: "Mar '24",
   },
   {
     id: 2,
-    src: "/images/andre-reis-1_DAlXy0wng-unsplash.jpg",
+    src: "/public/images/andre-reis-1_DAlXy0wng-unsplash.jpg",
     label: "Tools of the trade",
     date: "Feb '24",
   },
   {
     id: 3,
-    src: "/images/caio-coelho-OOKPHqAICKA-unsplash.jpg",
+    src: "/public/images/caio-coelho-OOKPHqAICKA-unsplash.jpg",
     label: "Chair No. 3, restored 2019",
     date: "Jan '24",
   },
   {
     id: 4,
-    src: "/images/allef-vinicius-IvQeAVeJULw-unsplash.jpg",
+    src: "/public/images/allef-vinicius-IvQeAVeJULw-unsplash.jpg",
     label: "The morning light",
     date: "Dec '23",
   },
   {
     id: 5,
-    src: "/images/siednji-leon-N9nFgunCLAc-unsplash.jpg",
+    src: "/public/images/siednji-leon-N9nFgunCLAc-unsplash.jpg",
     label: "Clean edges",
     date: "Nov '23",
   },
   {
     id: 6,
-    src: "/images/jonathan-cooper-MzgQbB72dDo-unsplash.jpg",
+    src: "/public/images/jonathan-cooper-MzgQbB72dDo-unsplash.jpg",
     label: "Hot lather, ready",
     date: "Oct '23",
   },
